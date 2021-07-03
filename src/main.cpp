@@ -16,10 +16,10 @@ int main(int argc, char *argv[])
     qInfo()<<"[main] "<<hp->get();
     hp->change(-9.999999999999999999999999999999999999);
     qInfo()<<"[main] "<<hp->isAlive();
-    HPPointer hp2 = new HP(*hp.data());
+    HPPointer hp2 = new HP(hp);
     qInfo()<<"[main] "<<hp.get();
     qInfo()<<"[main] "<<hp2.get();
-    delete hp;
+    delete hp2;
     qInfo()<<"[main] "<<hp2.get();
     HPPointer hp3 = new HP(2);
     hp3 = hp2;
