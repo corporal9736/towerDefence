@@ -3,7 +3,9 @@
 #include <QObject>
 #include <QDebug>
 #include <QPointF>
-#include <QPointer>
+#include <QString>
+#include <QPixmap>
+#include <QGraphicsPixmapItem>
 #include "define.h"
 
 class BaseCharacter;
@@ -29,13 +31,16 @@ class HP:public QObject{
 };
 /* #endregion*/
 
-
-
 class Picture{
     public:
-
+        Picture(const BaseCharacterPointer& parent);
+        
+        ~Picture();
     private:
-        BaseCharacter* parent;
+        BaseCharacterPointer parent;
+        PathPointer path;
+        PicPointer pix;
+        PosPointer pos;
 
 
 };

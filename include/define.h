@@ -1,6 +1,7 @@
 #ifndef DEFINE_H
 #define DEFINE_H
 #include <QPointer>
+#include <QSharedPointer>
 /* #region class in component.h */
 class HP;
 class Picture;
@@ -25,7 +26,11 @@ using BaseDefenderPointer = QPointer<BaseDefender>;
 
 /* #region some alias for class */
 class QPointF;
+class QPixmap;
+class QString;
 using PosPointer = QPointer<QPointF>;
+using PicPointer = QSharedPointer<QPixmap>;
+using PathPointer = QPointer<QString>;
 /* #endregion*/
 
 #endif // DEFINE_H

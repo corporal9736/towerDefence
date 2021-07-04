@@ -39,3 +39,26 @@ bool HP::isAlive() const{
     return (this->crntHP > 0);
 }
 /* #endregion */
+
+/* #region Picture*/
+
+Picture::Picture(const BaseCharacterPointer& parent):
+    parent(parent){
+    this->path = nullptr;
+    this->pix = nullptr;
+    this->pos = nullptr;
+    qInfo()<<"[info] Picture::Picture(BaseCharacterPointer parent) called";
+}
+
+
+
+Picture::~Picture(){
+    /* 这里不能delete parent，因为parent
+     * path由于不是指针不用特别释放
+     * pix考虑到复用和智能指针也不用delete
+     * 所以实际上需要delete就只有pos了
+     */
+    delete pos;
+}
+
+/* #endregion */

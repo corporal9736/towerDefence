@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
 
     HPPointer hp = new HP(10);
     qInfo()<<"[main] "<<hp->get();
-    hp->change(-9.999999999999999999999999999999999999);
+    hp->change(-9.9999);
     qInfo()<<"[main] "<<hp->isAlive();
     HPPointer hp2 = new HP(hp);
     qInfo()<<"[main] "<<hp.get();
