@@ -9,12 +9,14 @@ set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
+set(QRC_FILE resource.qrc)
 
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 COMPONENTS Widgets Core REQUIRED)
 
+qt6_add_resources(QRC ${QRC_FILE})
 add_executable(towerDefence
   include/define.h
   src/main.cpp
@@ -27,6 +29,7 @@ add_executable(towerDefence
   include/character.h
   src/tool.cpp
   include/tool.h
+  ${QRC}
 )
 
 target_link_libraries(towerDefence Qt6::Widgets Qt6::Core)

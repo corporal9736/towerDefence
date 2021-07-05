@@ -25,13 +25,12 @@ using BaseDefenderPointer = QPointer<BaseDefender>;
 /* #endregion*/
 
 /* #region some alias for class */
+//QString没有继承QObject，不能作为QPointer实例化的对象
 class QPointF;
 class QPixmap;
-class QString;
 class QGraphicsPixmapItem;
 using PosPointer = QPointer<QPointF>;
 using PicPointer = QSharedPointer<QPixmap>;
-using PathPointer = QPointer<QString>;
 using GPixItemPointer = QPointer<QGraphicsPixmapItem>;
 /* #endregion*/
 

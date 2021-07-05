@@ -40,25 +40,50 @@ bool HP::isAlive() const{
 }
 /* #endregion */
 
+/* #region PictureFactor*/
+
+// QT提供的宏，保证全局只有一个PictureFactor对象，线程安全
+Q_GLOBAL_STATIC(PictureFactor,picFactor)
+
+PictureFactor* PictureFactor::instance(){
+    return picFactor;
+}
+
+PicPointer PictureFactor::getPic(QString path){
+    if(!data.contains(path)){
+        PicPointer pic(new QPixmap(path));
+        if(pic->isNull()) 
+        {
+            qDebug()<<"[debug] no picture found, please check the path "<<path;
+            return nullptr;
+        }
+        data.insert(path,pic);
+    }
+    return data[path];
+}
+
+QList<QString> PictureFactor::getKeys(){
+    return this->data.keys();
+}
+/* #endregion */
+
 /* #region Picture*/
 
-Picture::Picture(const BaseCharacterPointer& parent):
-    parent(parent){
-    this->path = nullptr;
-    this->pix = nullptr;
-    this->pos = nullptr;
+PicItem::PicItem(const BaseCharacterPointer& owner):
+    owner(owner){
     qInfo()<<"[info] Picture::Picture(BaseCharacterPointer parent) called";
 }
 
 
 
-Picture::~Picture(){
-    /* 这里不能delete parent，因为parent
+PicItem::~PicItem(){
+    /* 这里不能delete parent，因为parent不归picItem管辖
      * path由于不是指针不用特别释放
-     * pix考虑到复用和智能指针也不用delete
-     * 所以实际上需要delete就只有pos了
+     * 所以需要delete的是pic和pos
      */
-    delete pos;
+    //delete pic.data();
+    //delete pos.data();
 }
 
 /* #endregion */
+

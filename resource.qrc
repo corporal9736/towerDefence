@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/img">
+        <file alias="swordman.png">resource/images/swordman.png</file>
+        <file alias="swordwoman.png">resource/images/swordwoman.png</file>
+    </qresource>
+</RCC>

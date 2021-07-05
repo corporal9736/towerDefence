@@ -6,6 +6,9 @@
 #include <QString>
 #include <QPixmap>
 #include <QGraphicsPixmapItem>
+#include <QHash>
+#include <QGlobalStatic>
+#include <QLabel>
 #include "define.h"
 
 class BaseCharacter;
@@ -31,19 +34,36 @@ class HP:public QObject{
 };
 /* #endregion*/
 
-class Picture{
+/* #region class PictureFactor*/
+class PictureFactor{
     public:
-        Picture(const BaseCharacterPointer& parent);
-        
-        ~Picture();
+        PictureFactor()=default;
+        ~PictureFactor()=default;
+        static PictureFactor* instance();
+        PicPointer getPic(QString path);
+        QList<QString> getKeys();
     private:
-        BaseCharacterPointer parent;
-        PathPointer path;
-        PicPointer pix;
+        QHash<QString,PicPointer> data;
+};
+/* #endregion*/
+
+class PicItem{
+    //此处使用owner是为了避免与图形系统的parent混淆
+    public:
+        PicItem(const BaseCharacterPointer& owner);
+        
+        ~PicItem();
+    private:
+        BaseCharacterPointer owner;
+        //QString没有继承QObject，不能作为QPointer实例化的对象
+        QString path;
+        GPixItemPointer pic;
         PosPointer pos;
 
-
 };
+
+
+
 
 class Move{
 
