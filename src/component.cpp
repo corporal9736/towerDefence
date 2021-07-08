@@ -67,22 +67,26 @@ QList<QString> PictureFactor::getKeys(){
 }
 /* #endregion */
 
-/* #region Picture*/
+/* #region PicItem*/
 
 PicItem::PicItem(const BaseCharacterPointer& owner):
-    owner(owner){
+    owner(owner),picPath(""){
+    this->pic = nullptr;
     qInfo()<<"[info] Picture::Picture(BaseCharacterPointer parent) called";
 }
 
-
+PicItem::PicItem(const QString& path,const PosPointer& pos,const BaseCharacterPointer& owner):
+    owner(owner),picPath(path),pos(pos){
+        this->pic = GPixItemPointer(new QGraphicsPixmapItem(QPixmap(this->picPath)));
+}
 
 PicItem::~PicItem(){
     /* 这里不能delete parent，因为parent不归picItem管辖
      * path由于不是指针不用特别释放
      * 所以需要delete的是pic和pos
      */
-    //delete pic.data();
-    //delete pos.data();
+    pic.clear();
+    pos.clear();
 }
 
 /* #endregion */

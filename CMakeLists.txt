@@ -2,6 +2,8 @@ cmake_minimum_required(VERSION 3.5)
 
 project(towerDefence LANGUAGES CXX)
 
+set(CMAKE_CXX_FLAGS "-g -O0 -fno-inline" )  
+
 set(CMAKE_EXPORT_COMPILECOMMANDS ON)
 set(CMAKE_PREFIX_PATH /home/corporal/cmake)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)

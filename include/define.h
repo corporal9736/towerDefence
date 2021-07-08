@@ -29,9 +29,11 @@ using BaseDefenderPointer = QPointer<BaseDefender>;
 class QPointF;
 class QPixmap;
 class QGraphicsPixmapItem;
+class QTimer;
 using PosPointer = QPointer<QPointF>;
 using PicPointer = QSharedPointer<QPixmap>;
 using GPixItemPointer = QPointer<QGraphicsPixmapItem>;
+using TimerPointer = QPointer<QTimer>;
 /* #endregion*/
 
 #endif // DEFINE_H

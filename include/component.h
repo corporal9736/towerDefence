@@ -9,6 +9,7 @@
 #include <QHash>
 #include <QGlobalStatic>
 #include <QLabel>
+#include <QTimer>
 #include "define.h"
 
 class BaseCharacter;
@@ -47,27 +48,53 @@ class PictureFactor{
 };
 /* #endregion*/
 
+/* #region class PicItem*/
+class Move;
 class PicItem{
     //此处使用owner是为了避免与图形系统的parent混淆
     public:
-        PicItem(const BaseCharacterPointer& owner);
-        
+    //TODO
+        PicItem(const BaseCharacterPointer& owner=nullptr);
+        PicItem(const QString& path,const PosPointer& pos=nullptr,const BaseCharacterPointer& owner=nullptr);
+        PicItem(const PicItem& another);
+        PosPointer getPos() const;
+        PosPointer getCenter() const;
         ~PicItem();
     private:
+        friend class Move;
         BaseCharacterPointer owner;
         //QString没有继承QObject，不能作为QPointer实例化的对象
-        QString path;
+        QString picPath;
         GPixItemPointer pic;
         PosPointer pos;
+        QGraphicsItem *parent;//?
 
 };
+/* #endregion */
 
-
-
-
+/* #region class Move */
+/*
+ *这里将Move设计为PicItem的友元类，在初始化时首先判定owner的PicItem是否存在
+ *若不存在则直接报错
+ *简单来说，Move是PicItem的一个补充，有PicItem的不一定能运动（例如防御塔），
+ *而能运动的一定有PicItem
+ *一个对象类中包含了Move则代表可以移动，target指示了运动的目标，当前位置则从PicItem
+ *中直接读取，timer指示了运动开始的事件，timer在初始化时就开始计时，或者可以考虑
+ *设置全局时间，attacker在读取到一定的进程时间后出发。
+ */
 class Move{
+    public:
+        void onChanged(qreal newSpeed,PosPointer newTarget);
+    private:
+        BaseCharacterPointer owner;
+        qreal speed;
+        PosPointer target;
+        TimerPointer timer;
 
 };
+
+/* #endregion */
+
 
 class Attack{
 
