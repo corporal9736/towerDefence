@@ -1,15 +1,6 @@
 #ifndef COMPONENT_H
 #define COMPONENT_H
-#include <QObject>
-#include <QDebug>
-#include <QPointF>
-#include <QString>
-#include <QPixmap>
-#include <QGraphicsPixmapItem>
-#include <QHash>
-#include <QGlobalStatic>
-#include <QLabel>
-#include <QTimer>
+
 #include "define.h"
 
 class BaseCharacter;
@@ -54,15 +45,16 @@ class PicItem{
     //此处使用owner是为了避免与图形系统的parent混淆
     public:
     //TODO
-        PicItem(const BaseCharacterPointer& owner=nullptr);
-        PicItem(const QString& path,const PosPointer& pos=nullptr,const BaseCharacterPointer& owner=nullptr);
+        PicItem(BaseCharacter* const owner=nullptr);
+        PicItem(const QString& path,const PosPointer& pos=nullptr,BaseCharacter* const owner=nullptr);
         PicItem(const PicItem& another);
         PosPointer getPos() const;
         PosPointer getCenter() const;
         ~PicItem();
     private:
         friend class Move;
-        BaseCharacterPointer owner;
+        //使用裸指针指向parent及owner是更加合理的选择，这类对象不需要new、不需要引用计数，etc.
+        BaseCharacter* owner;
         //QString没有继承QObject，不能作为QPointer实例化的对象
         QString picPath;
         GPixItemPointer pic;
@@ -86,7 +78,7 @@ class Move{
     public:
         void onChanged(qreal newSpeed,PosPointer newTarget);
     private:
-        BaseCharacterPointer owner;
+        BaseCharacter* owner;
         qreal speed;
         PosPointer target;
         TimerPointer timer;
